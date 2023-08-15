@@ -1,0 +1,15 @@
+FROM node:14
+
+WORKDIR /usr/src/server
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3001
+
+COPY start.sh /usr/src/server/start.sh
+
+CMD [ "/usr/src/server/start.sh" ]

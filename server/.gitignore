@@ -1,0 +1,28 @@
+# Node.js specific
+node_modules/
+npm-debug.log
+
+# Logs
+logs
+*.log
+
+# IDEs and editors
+.vscode/
+
+# OS generated
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# dotenv environment variable files
+.env
+.env.test
+.env.production
+
+# Databases
+*.sqlite
+
