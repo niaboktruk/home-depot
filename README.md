@@ -82,7 +82,7 @@ docker-compose down
 ```
 
 ## Contributing
-Contributions are welcome! Please read our contributing guidelines to get started.
+Contributions are welcome! Please read our contributing guidelines to get started. In the moment we don't have any guidelines so feel free to improve the project!
 
 ## License
 This project is licensed under the MIT License.
