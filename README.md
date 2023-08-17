@@ -27,7 +27,7 @@ This project consists of a web application that allows users to view and manage 
 
 1. Clone the repository:
 
-	git clone [YOUR_REPOSITORY_LINK] homedepot
+	git clone https://github.com/niaboktruk/home-depot.git
 
 2. Install dependencies for both the client and the server:
 
