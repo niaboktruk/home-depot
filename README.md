@@ -33,12 +33,12 @@ This project consists of a web application that allows users to view and manage 
 
 ```
 cd homedepot/client
-npm install
+yarn install
 ```
 
 ```
 cd ../server
-npm install
+yarn install
 ```
 
 ## Running the Application
