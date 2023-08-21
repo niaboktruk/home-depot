@@ -1,6 +1,6 @@
-# Homedepot Car Listings
+# Home Depot - Car Store
 
-This project consists of a web application that allows users to view and manage car listings. The project is split into two main components:
+This project consists of a web application that allows users to view and manage cars. The project is split into two main components:
 
 1. **Client**: A React-based user interface.
 2. **Server**: A Node.js backend API to manage car data.
@@ -62,8 +62,9 @@ Access the application at http://localhost:3000 and the server's API endpoints a
 ## API Endpoints
 
 ```
-GET /cars: Fetch all cars.
-POST /cars: Add a new car.
+GET /cars - Fetch all cars.
+POST /cars - Add a new car.
+GET /cars/id - Get car by ID.
 ```
 
 ## Docker Deployment
@@ -74,6 +75,8 @@ Build and start the services:
 ```
 docker-compose up --build
 ```
+
+Access the application at http://localhost:80.
 
 ## Stop the services:
 
