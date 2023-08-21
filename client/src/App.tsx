@@ -1,9 +1,9 @@
-import CarList from './components/CarList';
+import CarStore from './components/CarStore'
 
 const HomePage: React.FC = () => {
   return (
     <div style={{ padding: '20px' }}>
-      <CarList />
+      <CarStore />
     </div>
   );
 }
