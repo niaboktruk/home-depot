@@ -83,3 +83,38 @@ exports.getCarById = (req, res) => {
   });
 };
 
+exports.deleteCarById = (req, res) => {
+  const { method, url, query, body } = req;
+
+  carService.checkCarExistsById(req.params.id, (error, carExists) => {
+    if (error) {
+      logger.error(
+        `deleteCarById - Error while checking car existence - ${error.message}`
+      );
+      return res.status(500).json({ error: "Failed to delete the car." });
+    }
+
+    if (!carExists) {
+      logger.error(`deleteCarById - Car not found - ${method} ${url}`);
+      return res.status(404).json({ error: "Car not found." });
+    }
+
+    carService.deleteCarById(req.params.id, (deleteError, deleteResult) => {
+      if (deleteError) {
+        logger.error(
+          `deleteCarById - ${
+            deleteError.message
+          } - ${method} ${url} - Query: ${JSON.stringify(
+            query
+          )} - Body: ${JSON.stringify(body)}`
+        );
+        return res.status(500).json({ error: "Failed to delete the car." });
+      }
+
+      logger.info(
+        `deleteCarById - Car deleted successfully - ${method} ${url}`
+      );
+      res.status(204).end(); // 204 No Content
+    });
+  });
+};

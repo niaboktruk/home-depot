@@ -12,8 +12,17 @@ const getAllCars = (callback) => {
 };
 
 const addCar = (carData, callback) => {
-  const { id, make, model, package: carPackage, color, year, category, mileage, price } =
-    carData;
+  const {
+    id,
+    make,
+    model,
+    package: carPackage,
+    color,
+    year,
+    category,
+    mileage,
+    price,
+  } = carData;
 
   if (!id || !make || !model || !year || !category || !price) {
     return callback(
@@ -65,8 +74,32 @@ const getCarById = (id, callback) => {
   });
 };
 
+const deleteCarById = (id, callback) => {
+  const sql = "DELETE FROM cars WHERE id = ?";
+  db.run(sql, [id], function (err, row) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, row);
+    }
+  });
+};
+
+const checkCarExistsById = (id, callback) => {
+  db.get("SELECT id FROM cars WHERE id = ?", [id], (err, row) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      const carExists = row !== undefined;
+      callback(null, carExists);
+    }
+  });
+};
+
 module.exports = {
   addCar,
   getAllCars,
-  getCarById
+  getCarById,
+  deleteCarById,
+  checkCarExistsById,
 };
