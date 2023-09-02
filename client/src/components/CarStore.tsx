@@ -1,16 +1,25 @@
 import React, { useEffect } from "react";
-import { Alert, CircularProgress, Backdrop, Fab } from "@mui/material";
+import {
+  Alert,
+  CircularProgress,
+  Backdrop,
+  Fab,
+  Snackbar,
+  AlertColor,
+} from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { fetchCars } from "../service/cars";
+import { deleteCar, fetchCars } from "../service/cars";
 import { Car } from "../models/car";
 import CarList from "./CarList";
 import ModalAddCar from "./ModalAddCar";
 
 const CarStore: React.FC = () => {
   const [cars, setCars] = React.useState<Car[]>([]);
+  const [openSnack, setOpenSnack] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+  const [severity, setSeverity] = React.useState<AlertColor>();
+  const [snackMessage, setSnackMessage] = React.useState("");
   const [openModalNewCar, setOpenModalNewCar] = React.useState(false);
-  const [error, setError] = React.useState<{ message: string } | null>(null);
 
   useEffect(() => {
     const getCars = async () => {
@@ -18,18 +27,42 @@ const CarStore: React.FC = () => {
         const data = await fetchCars();
         setCars(data);
         setLoading(false);
-      } catch (err) {
-        if (err instanceof Error) setError({ message: err.message });
-        else setError({ message: "An unknown error occurred." });
-        setLoading(false);
+      } catch (err: unknown) {
+        handleError(err);
       }
     };
 
     getCars();
   }, []);
 
+  const handleError = (err: unknown) => {
+    if (err instanceof Error) setSnackMessage(err.message);
+    else setSnackMessage("An unknown error occurred.");
+    setSeverity("error");
+    setOpenSnack(true);
+    setLoading(false);
+  };
+
   const addSavedCar = (savedCar: Car) => {
     setCars((prevCars) => [...prevCars, savedCar]);
+    setSeverity("success");
+    setSnackMessage("Car added with success");
+    setOpenSnack(true);
+  };
+
+  const handleDeleteCar = async (carId: string) => {
+    try {
+      setLoading(true);
+      await deleteCar(carId);
+      const updatedCars = cars.filter((car) => car.id !== carId);
+      setCars(updatedCars);
+      setLoading(false);
+      setSeverity("success");
+      setSnackMessage("Car removed with success");
+      setOpenSnack(true);
+    } catch (err: unknown) {
+      handleError(err);
+    }
   };
 
   const handleOpenAddCarModal = () => {
@@ -38,6 +71,16 @@ const CarStore: React.FC = () => {
 
   const handleCloseAddCarModal = () => {
     setOpenModalNewCar(false);
+  };
+
+  const handleCloseSnack = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnack(false);
   };
 
   if (loading) {
@@ -51,18 +94,20 @@ const CarStore: React.FC = () => {
     );
   }
 
-  if (error) {
-    return <Alert severity="error">{error.message}</Alert>;
-  }
-
   return (
     <>
-      <div style={{ textAlign: "center" }}>
-        <h1>Home Depot</h1>
-        <h2>Car Store</h2>
-      </div>
-
-      <CarList cars={cars}></CarList>
+      <Snackbar
+        open={openSnack}
+        autoHideDuration={6000}
+        onClose={handleCloseSnack}
+      >
+        <Alert
+          severity={severity}
+          sx={{ width: "100%" }}
+        >
+          {snackMessage}
+        </Alert>
+      </Snackbar>
 
       <Fab
         color="primary"
@@ -82,6 +127,13 @@ const CarStore: React.FC = () => {
         onClose={handleCloseAddCarModal}
         newCar={addSavedCar}
       ></ModalAddCar>
+
+      <div style={{ textAlign: "center" }}>
+        <h1>Home Depot</h1>
+        <h2>Car Store</h2>
+      </div>
+
+      <CarList cars={cars} onDelete={handleDeleteCar}></CarList>
     </>
   );
 };

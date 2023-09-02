@@ -99,7 +99,7 @@ exports.deleteCarById = (req, res) => {
       return res.status(404).json({ error: "Car not found." });
     }
 
-    carService.deleteCarById(req.params.id, (deleteError, deleteResult) => {
+    carService.deleteCarById(req.params.id, (deleteError) => {
       if (deleteError) {
         logger.error(
           `deleteCarById - ${
@@ -114,7 +114,7 @@ exports.deleteCarById = (req, res) => {
       logger.info(
         `deleteCarById - Car deleted successfully - ${method} ${url}`
       );
-      res.status(204).end(); // 204 No Content
+      res.status(204).end();
     });
   });
 };

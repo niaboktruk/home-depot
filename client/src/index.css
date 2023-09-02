@@ -76,6 +76,13 @@ button:focus-visible {
   z-index: 1;
 }
 
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
 .modal-content {
   max-height: 60vh;
   width: 100%;

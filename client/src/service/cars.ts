@@ -27,3 +27,16 @@ export const createCar = async (newCar: Car): Promise<Car> => {
   const data = await response.json();
   return (await data.data) as Car;
 };
+
+export const deleteCar = async (CarId: string): Promise<void> => {
+  const response = await fetch(`${BASE_URL}/${CarId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || "Server Error");
+  }
+};

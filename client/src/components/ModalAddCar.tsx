@@ -7,6 +7,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 import React, { useEffect } from "react";
 import { Car } from "../models/car";
 import { createCar } from "../service/cars";
@@ -133,7 +134,7 @@ const ModalAddCar: React.FC<AddCarModalProps> = ({ open, onClose, newCar }) => {
             <TextField
               fullWidth
               margin="normal"
-              label="License Plate"
+              label="License Plate *"
               variant="outlined"
               inputProps={{
                 maxLength: 7
@@ -148,7 +149,7 @@ const ModalAddCar: React.FC<AddCarModalProps> = ({ open, onClose, newCar }) => {
             <TextField
               fullWidth
               margin="normal"
-              label="Make"
+              label="Make *"
               variant="outlined"
               error={Boolean(formErrors.make)}
               helperText={formErrors.make}
@@ -160,7 +161,7 @@ const ModalAddCar: React.FC<AddCarModalProps> = ({ open, onClose, newCar }) => {
             <TextField
               fullWidth
               margin="normal"
-              label="Model"
+              label="Model *"
               variant="outlined"
               error={Boolean(formErrors.model)}
               helperText={formErrors.model}
@@ -192,7 +193,7 @@ const ModalAddCar: React.FC<AddCarModalProps> = ({ open, onClose, newCar }) => {
             <TextField
               fullWidth
               margin="normal"
-              label="Year"
+              label="Year *"
               type="number"
               variant="outlined"
               error={Boolean(formErrors.year)}
@@ -205,7 +206,7 @@ const ModalAddCar: React.FC<AddCarModalProps> = ({ open, onClose, newCar }) => {
             <TextField
               fullWidth
               margin="normal"
-              label="Category"
+              label="Category *"
               variant="outlined"
               error={Boolean(formErrors.category)}
               helperText={formErrors.category}
@@ -228,7 +229,7 @@ const ModalAddCar: React.FC<AddCarModalProps> = ({ open, onClose, newCar }) => {
             <TextField
               fullWidth
               margin="normal"
-              label="Price (in cents)"
+              label="Price (in cents) *"
               type="number"
               variant="outlined"
               error={Boolean(formErrors.price)}
@@ -245,16 +246,15 @@ const ModalAddCar: React.FC<AddCarModalProps> = ({ open, onClose, newCar }) => {
             sx={{ mt: 3, alignSelf: "center" }}
             variant="contained"
             color="primary"
-            type="submit"
+            startIcon={<AddIcon />}
             onClick={handleSubmit}
           >
             Add Car
           </Button>
           <Button
             sx={{ mt: 3, ml: 2, alignSelf: "center" }}
-            variant="contained"
+            variant="outlined"
             color="primary"
-            type="submit"
             onClick={onClose}
           >
             Cancel

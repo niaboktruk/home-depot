@@ -1,6 +1,7 @@
 # Node.js specific
 node_modules/
 npm-debug.log
+yarn.lock
 
 # Logs
 logs
