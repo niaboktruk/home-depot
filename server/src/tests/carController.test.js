@@ -13,9 +13,9 @@ describe("Car API routes /cars", () => {
     category: "Sedan",
   };
 
-  afterAll(async () => {
-    await db.run(`DELETE FROM cars WHERE id = ?`, newCar.id);
-  });
+  // afterAll(async () => {
+  //   await db.run(`DELETE FROM cars WHERE id = ?`, newCar.id);
+  // });
 
   it("should fetch all cars", async () => {
     const res = await request(app).get("/cars");
@@ -34,5 +34,10 @@ describe("Car API routes /cars", () => {
     const res = await request(app).post("/cars").send(newCar);
 
     expect(res.statusCode).toEqual(409);
+  });
+
+  it("Should delete an existent car", async () => {
+    const res = await request(app).delete(`/cars/${newCar.id}`);
+    expect(res.statusCode).toBe(204);
   });
 });
