@@ -13,10 +13,6 @@ describe("Car API routes /cars", () => {
     category: "Sedan",
   };
 
-  // afterAll(async () => {
-  //   await db.run(`DELETE FROM cars WHERE id = ?`, newCar.id);
-  // });
-
   it("should fetch all cars", async () => {
     const res = await request(app).get("/cars");
     expect(res.statusCode).toBe(200);
